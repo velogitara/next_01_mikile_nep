@@ -1,7 +1,8 @@
 'use client';
+import PostSearch from '@/Components/PostSearch';
+import { Posts } from '@/Components/Posts';
 import { getAllPosts } from '@/Services/getPosts';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export const metadata: Metadata = {
@@ -21,17 +22,8 @@ export default function Blog() {
   return (
     <>
       <h1>Blog page</h1>
-      {loading ? (
-        <h3>Loading...</h3>
-      ) : (
-        <ul>
-          {posts.map((post: any) => (
-            <li key={post.id}>
-              <Link href={`/blog/${post.id}`}>{post.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <PostSearch onSearch={setPosts} />
+      {loading ? <h3>Loading...</h3> : <Posts posts={posts} />}
     </>
   );
 }
